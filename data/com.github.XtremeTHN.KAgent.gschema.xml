@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist gettext-domain="kagent">
+	<schema id="com.github.XtremeTHN.KAgent" path="/com/github/XtremeTHN/KAgent/">
+	</schema>
+</schemalist>
