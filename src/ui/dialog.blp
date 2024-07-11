@@ -1,0 +1,55 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $AgDialog : Adw.Window {
+  content: Adw.ToolbarView {
+    [top]
+    Adw.HeaderBar {}
+    
+    content: Adw.Clamp {
+      margin-top: 10;
+      margin-end: 10;
+      margin-bottom: 10;
+      margin-start: 10;
+      
+      child: Gtk.Box {
+        orientation: vertical;
+        Gtk.Label {
+          label: "Authentication required";
+          styles [
+            "title-2"
+          ]
+        }
+        Gtk.Label message {
+          wrap: true;
+          margin-bottom: 20;
+        }
+        
+        Gtk.Box {
+          orientation: vertical;
+          spacing: 10;
+          margin-bottom: 10;
+          Gtk.DropDown users_combo {
+            model: Gtk.StringList {};
+          }
+          Gtk.PasswordEntry password {
+            placeholder-text: "User password";
+          }
+          Gtk.Revealer error_revealer {
+            halign: start;
+            child: Gtk.Label error_label {
+              label: "Authentication failed";
+            };
+          }
+        }
+        
+        Gtk.Button auth_btt {
+          label: "Authenticate";
+          styles [
+            "warning",
+          ]
+        }
+      };
+    };
+  };
+}
