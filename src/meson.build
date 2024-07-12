@@ -1,6 +1,7 @@
 kagent_sources = [
   'App.vala',
   'Agent.vala',
+  'Background.vala',
   'Dialog.vala'
 ]
 

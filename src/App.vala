@@ -32,6 +32,10 @@ namespace Kagent {
             base.startup ();
 
             var agent = new Ag.Agent ();
+            var provider = new Gtk.CssProvider ();
+            provider.load_from_resource ("/com/github/XtremeTHN/KAgent/style.css");
+            
+            Gtk.StyleContext.add_provider_for_display (Gdk.Display.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
             try {
                 var subject = new Polkit.UnixSession.for_process_sync (Posix.getpid(), new Cancellable ());
