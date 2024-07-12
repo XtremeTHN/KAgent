@@ -30,6 +30,8 @@ public class Ag.Dialog : Adw.Window {
     private ulong on_completed_id;
     private ulong on_request_id;
 
+    private ulong on_dropdown_selected_change_id;
+
     private PolkitAgent.Session? polkit_session = null;
     private Polkit.Identity? polkit_identity = null;
 
@@ -46,9 +48,14 @@ public class Ag.Dialog : Adw.Window {
 
         cancellable.cancelled.connect (cancel);
 
-        users_combo.notify.connect(on_dropdown_selected_change);
+        on_dropdown_selected_change_id = users_combo.notify.connect(on_dropdown_selected_change);
 
         auth_btt.clicked.connect(authenticate);
+
+        close_request.connect(() => {
+            cancel();
+            return true;
+        });
         
         update_idents();
         init_session();
@@ -131,6 +138,7 @@ public class Ag.Dialog : Adw.Window {
             return;
         } else {
             done ();
+            SignalHandler.disconnect(users_combo, on_dropdown_selected_change_id);
         }
     }
 
@@ -151,6 +159,7 @@ public class Ag.Dialog : Adw.Window {
         if (polkit_session != null) {
             polkit_session.cancel ();
         }
+        SignalHandler.disconnect(users_combo, on_dropdown_selected_change_id);
 
         debug ("Authentication cancelled");
         was_cancelled = true;

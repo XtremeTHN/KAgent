@@ -33,8 +33,8 @@ namespace Kagent {
 
             var agent = new Ag.Agent ();
             try {
-                var subject = new Polkit.UnixSession.for_process_sync (Posix.getpid(), null);
-                agent.register (NONE, subject, "/com/github/XtremeTHN/KAgent", null);
+                var subject = new Polkit.UnixSession.for_process_sync (Posix.getpid(), new Cancellable ());
+                agent.register (NONE, subject, "/com/github/XtremeTHN/KAgent", new Cancellable ());
             } catch (Error e) {
                 critical ("Error while trying to register the authentication agent: %s", e.message);
             }
