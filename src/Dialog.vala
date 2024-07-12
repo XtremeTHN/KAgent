@@ -70,15 +70,18 @@ public class Ag.Dialog : Adw.Window {
     }
 
     private void update_idents () {
+        // new model
         users_combo_model = new Gtk.StringList (null);
 
         int index = 0;
         foreach (unowned Polkit.Identity? ident in _idents) {
-            // getting user name? idk
+            // Getting user name
             unowned Posix.Passwd? pwd = Posix.getpwuid (((Polkit.UnixUser) ident).get_uid ());
             
+            // if the is not null then append it to the model
             if (pwd != null) {
                 users_combo_model.append (pwd.pw_name);
+
                 if (index == 0) {
                     users_combo.set_selected (index);
                 }
@@ -88,11 +91,14 @@ public class Ag.Dialog : Adw.Window {
         }
 
         users_combo.set_model (users_combo_model);
+
+        // Calling this for updating polkit_identity
         on_dropdown_selected_change ();
     }
 
     private void init_session () {
         if (polkit_session != null) {
+            // calling this because we will create a new session
             deinit_session ();
         }
 
@@ -110,6 +116,7 @@ public class Ag.Dialog : Adw.Window {
 
         deinit_session ();
         
+        // Getting identity from _idents
         polkit_identity = _idents.nth_data (ident_pos);
 
         init_session ();
@@ -139,14 +146,20 @@ public class Ag.Dialog : Adw.Window {
     }
 
     private void on_completed (bool authorized) {
+        // this get's called when the session is completed
+
         if (!authorized || _cancellable.is_cancelled ()) {
+            // if not authorized or was cancelled, reset password entry and reset session
             deinit_session ();
             password.set_text ("");
             password.grab_focus ();
             init_session ();
             return;
         } else {
+            // emit done signal
             done ();
+            
+            // Disconnect from notify, cuz if i dont disconnect it, an address boundary error will stop the program
             SignalHandler.disconnect (users_combo, on_dropdown_selected_change_id);
         }
     }
@@ -155,12 +168,15 @@ public class Ag.Dialog : Adw.Window {
         if (polkit_session == null) {
             init_session ();
         }
-
+    
         error_revealer.set_reveal_child (false);
+
+        // emiting response signal with the content of password entry
         polkit_session.response (password.get_text ());
     }
 
     private void on_request (string request, bool echo_on) {
+        // idk what this function does
         if (!request.has_prefix ("Password:")) {
             password.placeholder_text = request;
         }
@@ -170,6 +186,8 @@ public class Ag.Dialog : Adw.Window {
         if (polkit_session != null) {
             polkit_session.cancel ();
         }
+
+        // Disconnect from notify, cuz if i dont disconnect it, an address boundary error will stop the program
         SignalHandler.disconnect (users_combo, on_dropdown_selected_change_id);
 
         debug ("Authentication cancelled");
