@@ -8,6 +8,9 @@ namespace Ag {
             };
 
             var dialog = new Ag.Dialog (message, cookie, identities, cancellable);
+
+            
+
             dialog.done.connect (() => initiate_authentication.callback ());
 
             dialog.present ();
