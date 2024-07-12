@@ -5,13 +5,19 @@ namespace Ag {
                 return false;
             };
 
-            var dialog = new Ag.Dialog (message, icon_name, cookie, identities, cancellable);
+            var dialog = new Ag.Dialog (message, cookie, identities, cancellable);
             dialog.done.connect (() => initiate_authentication.callback ());
 
             dialog.present ();
             yield;
 
             dialog.destroy ();
+
+            if (dialog.was_cancelled == true) {
+                //  throw new Polkit.Error.CANCELLED ("Authentication dialog was closed");
+                warning ("Authentication dialog was closed");
+                return false;
+            } 
 
             return true;
         }

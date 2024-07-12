@@ -28,6 +28,10 @@ kagent_sources += gnome.compile_resources('kagent-resources',
   c_name: 'kagent'
 )
 
+add_project_arguments([
+  '-g'
+], language: 'vala')
+
 executable('kagent', kagent_sources,
   dependencies: kagent_deps,
        install: true,

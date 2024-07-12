@@ -1,8 +1,7 @@
 using Gtk 4.0;
 using Adw 1;
 
-template $AgDialog : Adw.Window {
-  content: Adw.ToolbarView {
+Adw.ToolbarView {
     [top]
     Adw.HeaderBar {}
     
@@ -14,22 +13,27 @@ template $AgDialog : Adw.Window {
       
       child: Gtk.Box {
         orientation: vertical;
+        spacing: 4;
         Gtk.Label {
           label: "Authentication required";
           styles [
             "title-2"
           ]
         }
+
         Gtk.Label message {
+          label: "asd";
           wrap: true;
-          margin-bottom: 20;
+          margin-bottom: 14;
         }
         
         Gtk.Box {
           orientation: vertical;
           spacing: 10;
           margin-bottom: 10;
-          Gtk.DropDown users_combo {}
+          Gtk.DropDown users_combo {
+            model: Gtk.StringList {};
+          }
           Gtk.PasswordEntry password {
             placeholder-text: "User password";
           }
@@ -49,5 +53,4 @@ template $AgDialog : Adw.Window {
         }
       };
     };
-  };
-}
+  }
