@@ -2,5 +2,6 @@
 <gresources>
   <gresource prefix="/com/github/XtremeTHN/KAgent">
     <file alias="dialog.ui">ui/dialog.ui</file>
+    <file alias="style.css">ui/style.css</file>
   </gresource>
 </gresources>

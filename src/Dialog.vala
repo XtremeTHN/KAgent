@@ -40,6 +40,12 @@ public class Ag.Dialog : Adw.Window {
     private Cancellable _cancellable;
 
     public Dialog (string msg, string cookie, List<Polkit.Identity?>? idents, Cancellable cancellable) {
+        GtkLayerShell.init_for_window (this);
+        GtkLayerShell.set_keyboard_mode (this, GtkLayerShell.KeyboardMode.ON_DEMAND);
+        GtkLayerShell.set_layer (this, GtkLayerShell.Layer.TOP);
+
+        add_css_class("dialog");
+
         message.label = msg;
 
         _idents = idents;
@@ -121,6 +127,7 @@ public class Ag.Dialog : Adw.Window {
     }
 
     private void on_show_error(string error) {
+        warning(error);
         error_label.label = error;
         error_revealer.set_reveal_child(true);
     }

@@ -9,9 +9,10 @@ namespace Ag {
 
             var dialog = new Ag.Dialog (message, cookie, identities, cancellable);
 
-            GtkLayerShell.init_for_window (dialog);
-            GtkLayerShell.set_keyboard_mode (dialog, GtkLayerShell.KeyboardMode.EXCLUSIVE);
-            GtkLayerShell.set_layer (dialog, GtkLayerShell.Layer.TOP);
+            var provider = new Gtk.CssProvider ();
+            provider.load_from_resource ("/com/github/XtremeTHN/KAgent/style.css");
+
+            dialog.get_style_context ().add_provider (provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
             dialog.done.connect (() => initiate_authentication.callback ());
 
@@ -24,7 +25,6 @@ namespace Ag {
                 throw new Polkit.Error.CANCELLED ("Authentication dialog was dismissed by the user");
             }
 
-            warning ("terminated");
             return true;
         }
     }

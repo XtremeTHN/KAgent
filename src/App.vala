@@ -32,6 +32,7 @@ namespace Kagent {
             base.startup ();
 
             var agent = new Ag.Agent ();
+
             try {
                 var subject = new Polkit.UnixSession.for_process_sync (Posix.getpid(), new Cancellable ());
                 agent.register (NONE, subject, "/com/github/XtremeTHN/KAgent", new Cancellable ());
