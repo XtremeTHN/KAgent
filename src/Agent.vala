@@ -9,7 +9,9 @@ namespace Ag {
 
             var dialog = new Ag.Dialog (message, cookie, identities, cancellable);
 
-            
+            GtkLayerShell.init_for_window (dialog);
+            GtkLayerShell.set_keyboard_mode (dialog, GtkLayerShell.KeyboardMode.EXCLUSIVE);
+            GtkLayerShell.set_layer (dialog, GtkLayerShell.Layer.TOP);
 
             dialog.done.connect (() => initiate_authentication.callback ());
 

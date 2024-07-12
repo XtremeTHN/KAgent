@@ -7,9 +7,10 @@ kagent_sources = [
 kagent_deps = [
   dependency('gtk4'),
   dependency('glib-2.0'),
-  dependency('libadwaita-1', version: '>= 1.4'),
   dependency('polkit-agent-1'),
+  dependency('gtk4-layer-shell-0'),
   dependency('polkit-gobject-1'),
+  dependency('libadwaita-1', version: '>= 1.4'),
   meson.get_compiler('vala').find_library('posix')
 ]
 
