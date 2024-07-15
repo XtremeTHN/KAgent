@@ -1,6 +1,1 @@
-data/com.github.XtremeTHN.KAgent.desktop.in
-data/com.github.XtremeTHN.KAgent.metainfo.xml.in
-data/com.github.XtremeTHN.KAgent.gschema.xml
-src/main.vala
-src/window.vala
-src/window.ui
+src/ui/dialog.blp

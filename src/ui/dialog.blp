@@ -15,7 +15,7 @@ template $AgDialog : Adw.Window {
       child: Gtk.Box {
         orientation: vertical;
         Gtk.Label {
-          label: "Authentication required";
+          label: _("Authentication required");
           styles [
             "title-2"
           ]
@@ -31,18 +31,18 @@ template $AgDialog : Adw.Window {
           margin-bottom: 10;
           Gtk.DropDown users_combo {}
           Gtk.PasswordEntry password {
-            placeholder-text: "User password";
+            placeholder-text: _("User password");
           }
           Gtk.Revealer error_revealer {
             halign: start;
             child: Gtk.Label error_label {
-              label: "Authentication failed";
+              label: _("Authentication failed");
             };
           }
         }
         
         Gtk.Button auth_btt {
-          label: "Authenticate";
+          label: _("Authenticate");
           styles [
             "warning",
           ]
