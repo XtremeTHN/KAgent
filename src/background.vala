@@ -11,5 +11,6 @@ public class VAgent.Background : Adw.ApplicationWindow {
         GtkLayerShell.set_anchor (this, GtkLayerShell.Edge.LEFT, true);
 
         set_opacity (VAgent.opacity);
+        set_css_classes ({"background"});
     }
 }

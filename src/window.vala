@@ -58,6 +58,8 @@ public class Window : Adw.Window {
 
         init_session ();
         password_entry.grab_focus ();
+
+        add_css_class ("dialog");
     }
 
     [GtkCallback]
